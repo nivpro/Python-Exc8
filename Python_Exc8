@@ -1,0 +1,76 @@
+#########################################
+# Question 1 - do not delete this comment
+#########################################
+def write_text_to_file(txt, file_path):
+    f = open(file_path,'w')
+    f.write(txt)
+    f.close()
+
+
+#########################################
+# Question 2 - do not delete this comment
+#########################################
+def get_file_length(file_path):
+    f = open(file_path)
+    result = len(f.read())
+    f.close()
+    return result
+
+
+#########################################
+# Question 3 - do not delete this comment
+#########################################
+def sum_file_nums(file_path):
+    f = open(file_path)
+    result = 0
+    for line in f:
+        result += float(line.rstrip())
+    f.close()
+    print(result)
+
+
+#########################################
+# Question 4 - do not delete this comment
+#########################################
+def parse_file_to_list(file_path, delimiter):
+    result = []
+    f = open(file_path)
+    result = [float(x) for x in f.read().rstrip().split(delimiter)]
+    f.close()
+    return result
+
+
+def parse_file_to_matrix(file_path, delimiter):
+    matrix = []
+    f = open(file_path)
+    for line in f:
+        tokens = line.rstrip().split(delimiter)
+        matrix.append([int(token) for token in tokens])
+    f.close()
+    return matrix
+
+
+
+#############################################
+# BONUS Question - do not delete this comment
+#############################################
+def count_courses_intersection(course2students):
+    courses2count = {}
+    for course1 in course2students:
+        for course2 in course2students:
+            if course1 != course2 and (course1,course2) not in courses2count and (course2,course1) not in courses2count:
+                courses2count[(course1, course2)] = intersection_of_course1_and_course2(course2students, course1, course2)
+    return courses2count
+
+#Auxiliary function for counting the intersection just to keep things simple.
+#You can put all this logic in the "if block" of the previous function of course.
+def intersection_of_course1_and_course2(course2students, course1, course2):
+    intersection_count = 0
+    for student in course2students[course1]:
+        if student in course2students[course2]:
+            intersection_count += 1
+    return intersection_count
+
+print(count_courses_intersection({'Math': ['Yuval', 'Noam'], 'Computer Science': ['Yuval'], 'Statistics': ['Yuval', 'Gal', 'Noam'], 'Algebra': ['Gal'], 'Physics': ['Gal'], 'Programming': ['Noam']}))
+
+
